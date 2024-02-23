@@ -7,7 +7,7 @@ const getAllLessons = async () => {
 };
 
 export default async function Home() {
-  console.log(supabase.auth.getUser());
+  // console.log(supabase.auth.getUser());
   const lessons = await getAllLessons();
   return (
     <main className="w-full max-w-3xl mx-auto my-16 px-2">
