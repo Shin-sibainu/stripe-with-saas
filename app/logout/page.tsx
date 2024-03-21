@@ -1,18 +1,27 @@
 "use client";
 
-import { supabase } from "@/utils/supabase";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React from "react";
 
 const Logout = () => {
   const router = useRouter();
+  const supabase = createClientComponentClient();
 
-  useEffect(() => {
-    supabase.auth.signOut();
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
     router.push("/");
-  }, []);
+    router.refresh();
+  };
 
-  return <div>Logout</div>;
+  return (
+    <button
+      onClick={handleSignOut}
+      className="border-2 px-4 py-2 rounded-md border-slate-500"
+    >
+      Logout
+    </button>
+  );
 };
 
 export default Logout;
