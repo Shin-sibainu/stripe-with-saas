@@ -25,9 +25,10 @@ const getPremiumContent = async (id: number) => {
 };
 
 const LessonDetails = async ({ params }: { params: { id: number } }) => {
-  const detailLesson = await getDetailLesson(params.id);
-  const video = await getPremiumContent(params.id);
-
+  const [detailLesson, video] = await Promise.all([
+    await getDetailLesson(params.id),
+    await getPremiumContent(params.id),
+  ]);
   const videoId = extractYouTubeVideoId(video?.video_url) as string;
 
   return (

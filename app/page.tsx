@@ -19,8 +19,11 @@ const getProfileData = async () => {
 
 export default async function Home() {
   const { data: session } = await supabase.auth.getSession();
-  const lessons = await getAllLessons();
-  const profile = await getProfileData();
+
+  const [lessons, profile] = await Promise.all([
+    getAllLessons(),
+    getProfileData(),
+  ]);
 
   return (
     <main className="w-full max-w-3xl mx-auto my-16 px-2">
@@ -28,7 +31,7 @@ export default async function Home() {
         <Link
           href={`/${lesson.id}`}
           key={lesson.id}
-          className="p-8 h-40 mb-4 rounded shadow text-xl flex"
+          className="p-8 h-40 mb-4 rounded shadow-md text-xl flex"
         >
           {lesson.title}
         </Link>
