@@ -1,6 +1,9 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import initStripe, { Stripe } from "stripe";
 import { cookies } from "next/headers";
+import Link from "next/link";
+import SubscribeButton from "../components/SubscribeButton";
+import CreateUserButton from "../auth/components/CreateUserButton";
 
 interface Plan {
   id: string;
@@ -42,7 +45,7 @@ const getProfileData = async () => {
 };
 
 const PricingPage = async () => {
-  const { data: session } = await supabase.auth.getSession();
+  const { data: user } = await supabase.auth.getSession();
 
   const [plans, profile] = await Promise.all([
     await getAllPrices(),
@@ -50,9 +53,9 @@ const PricingPage = async () => {
   ]);
 
   //!!はブール値に強制変換する。
-  const showSubscribeButton = !!session && !profile.is_subscribed; //ログインしているが、プラン契約していない
-  const showCreateAccountButton = !session; //ログインしていない
-  const showManageSubscriptionButton = !!session && profile.is_subscribed; //ログインもしていて、プラン契約もしている
+  const showSubscribeButton = !!user.session && !profile?.is_subscribed; //ログインしているが、プラン契約していない
+  const showCreateAccountButton = !user.session; //ログインしていない
+  const showManageSubscriptionButton = !!user.session && profile?.is_subscribed; //ログインもしていて、プラン契約もしている
 
   return (
     <div className="w-full max-w-3xl mx-auto py-16 flex justify-around">
@@ -63,8 +66,8 @@ const PricingPage = async () => {
           <p className="text-gray-500">
             {plan.price!}円 / {plan.interval}
           </p>
-          {showSubscribeButton && <button>プランを契約する</button>}
-          {showCreateAccountButton && <button>アカウントを作る</button>}
+          {showSubscribeButton && <SubscribeButton planId={plan.id} />}
+          {showCreateAccountButton && <CreateUserButton />}
           {showManageSubscriptionButton && <button>プランを管理する</button>}
         </div>
       ))}

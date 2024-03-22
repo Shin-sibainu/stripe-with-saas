@@ -2,6 +2,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
 import React from "react";
 import { cookies } from "next/headers";
+import AuthServerButton from "../auth/components/AuthServerButton";
 
 const Header = async () => {
   const supabase = createServerComponentClient({ cookies });
@@ -13,9 +14,12 @@ const Header = async () => {
       <Link href={"/pricing"} className="ml-4">
         プラン
       </Link>
-      <Link className="ml-auto" href={user.session ? "/logout" : "/login"}>
+      <div className="ml-auto">
+        <AuthServerButton />
+      </div>
+      {/* <Link className="ml-auto" href={user.session ? "/logout" : "/login"}>
         {user.session ? "ログアウト" : "ログイン"}
-      </Link>
+      </Link> */}
     </nav>
   );
 };
