@@ -1,11 +1,12 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
 import { cookies } from "next/headers";
+import { Database } from "./lib/database.types";
 
 //tutorialshin@gmail.com
 //https://github.com/Shin-sibainu/small-sns-clone
 
-const supabase = createServerComponentClient({ cookies });
+const supabase = createServerComponentClient<Database>({ cookies });
 
 const getAllLessons = async () => {
   const { data: lessons } = await supabase.from("lesson").select("*");
