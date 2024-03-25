@@ -13,3 +13,5 @@ end;
 
 
 3. create_new_profile_for_user(database trigger)
+create trigger create_new_profile_for_user after insert on auth.users for each row execute function create_profile_for_user();
+and rls policy setting
