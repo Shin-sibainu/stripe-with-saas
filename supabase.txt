@@ -1,0 +1,15 @@
+1. sql  
+select *
+from auth.users
+
+
+2. create_profile_for_users
+begin
+    insert into public.profile(id)
+    values(new.id)
+
+    return new;
+end; 
+
+
+3. create_new_profile_for_user(database trigger)
