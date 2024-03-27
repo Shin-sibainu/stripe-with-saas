@@ -1,7 +1,6 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import initStripe, { Stripe } from "stripe";
 import { cookies } from "next/headers";
-import Link from "next/link";
 import SubscribeButton from "../components/SubscribeButton";
 import CreateUserButton from "../auth/components/CreateUserButton";
 
