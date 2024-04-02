@@ -11,6 +11,11 @@ const Header = async () => {
   return (
     <nav className="flex py-4 px-6 border-b border-gray-200">
       <Link href={"/"}>ホーム</Link>
+      {!!user.session && (
+        <Link href={"/dashboard"} className="ml-4">
+          ダッシュボード
+        </Link>
+      )}
       <Link href={"/pricing"} className="ml-4">
         プラン
       </Link>

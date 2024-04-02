@@ -3,6 +3,7 @@ import initStripe, { Stripe } from "stripe";
 import { cookies } from "next/headers";
 import SubscribeButton from "../components/SubscribeButton";
 import CreateUserButton from "../auth/components/CreateUserButton";
+import Link from "next/link";
 
 interface Plan {
   id: string;
@@ -67,7 +68,7 @@ const PricingPage = async () => {
           </p>
           {showSubscribeButton && <SubscribeButton planId={plan.id} />}
           {showCreateAccountButton && <CreateUserButton />}
-          {showManageSubscriptionButton && <button>プランを管理する</button>}
+          {showManageSubscriptionButton && <Link href={"/dashboard"}>プランを管理する</Link>}
         </div>
       ))}
     </div>
