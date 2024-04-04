@@ -10,6 +10,8 @@ import { Database } from "../lib/database.types";
 export const dynamic = "force-dynamic";
 
 const LessonDetails = async ({ params }: { params: { id: number } }) => {
+  cookies().getAll();
+
   const supabase = createServerComponentClient<Database>({ cookies });
 
   const getDetailLesson = async (

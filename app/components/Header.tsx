@@ -7,6 +7,7 @@ import AuthServerButton from "../auth/components/AuthServerButton";
 export const dynamic = "force-dynamic";
 
 const Header = async () => {
+  cookies().getAll();
   const supabase = createServerComponentClient({ cookies });
   const { data: user } = await supabase.auth.getSession();
 

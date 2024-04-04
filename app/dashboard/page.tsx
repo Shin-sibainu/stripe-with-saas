@@ -9,6 +9,7 @@ import ManageSubscriptionButton from "../components/ManageSubscriptionButton";
 export const dynamic = "force-dynamic";
 
 const DashBoard = async () => {
+  cookies().getAll();
   const supabase = createServerComponentClient<Database>({ cookies });
 
   const getProfileData = async () => {

@@ -9,6 +9,8 @@ export async function GET(
   req: NextRequest,
   { params }: { params: { priceId: string } }
 ) {
+  cookies().getAll();
+
   const supabase = createRouteHandlerClient<Database>({ cookies });
   const { data } = await supabase.auth.getUser();
 
