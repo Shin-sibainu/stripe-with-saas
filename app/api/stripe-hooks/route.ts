@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import initStripe from "stripe";
 import { cookies } from "next/headers";
 
-export const config = { api: { bodyParser: false } };
+// export const config = { api: { bodyParser: false } };
 
 export async function POST(req: NextRequest) {
   const supabase = createRouteHandlerClient<Database>({ cookies });
