@@ -5,6 +5,8 @@ import SubscribeButton from "../components/SubscribeButton";
 import CreateUserButton from "../auth/components/CreateUserButton";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 interface Plan {
   id: string;
   name: string;
@@ -68,7 +70,9 @@ const PricingPage = async () => {
           </p>
           {showSubscribeButton && <SubscribeButton planId={plan.id} />}
           {showCreateAccountButton && <CreateUserButton />}
-          {showManageSubscriptionButton && <Link href={"/dashboard"}>プランを管理する</Link>}
+          {showManageSubscriptionButton && (
+            <Link href={"/dashboard"}>プランを管理する</Link>
+          )}
         </div>
       ))}
     </div>

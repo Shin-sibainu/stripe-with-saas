@@ -7,6 +7,8 @@ import { YouTubeEmbed } from "@next/third-parties/google";
 import { extractYouTubeVideoId } from "../utils/extractYoutubeVideoId";
 import { Database } from "../lib/database.types";
 
+export const dynamic = "force-dynamic";
+
 const getDetailLesson = async (
   id: number,
   supabase: SupabaseClient<Database>

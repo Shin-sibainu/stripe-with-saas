@@ -6,6 +6,8 @@ import React from "react";
 import { cookies } from "next/headers";
 import ManageSubscriptionButton from "../components/ManageSubscriptionButton";
 
+export const dynamic = "force-dynamic";
+
 const getProfileData = async (supabase: SupabaseClient) => {
   const { data: profile } = await supabase
     ?.from("profile")

@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import initStripe from "stripe";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: NextRequest) {
   const supabase = createRouteHandlerClient<Database>({ cookies });
   const { data } = await supabase.auth.getUser();

@@ -4,6 +4,8 @@ import React from "react";
 import { cookies } from "next/headers";
 import AuthServerButton from "../auth/components/AuthServerButton";
 
+export const dynamic = "force-dynamic";
+
 const Header = async () => {
   const supabase = createServerComponentClient({ cookies });
   const { data: user } = await supabase.auth.getSession();

@@ -6,6 +6,8 @@ import { Database } from "./lib/database.types";
 //tutorialshin@gmail.com
 //https://github.com/Shin-sibainu/small-sns-clone
 
+export const dynamic = "force-dynamic";
+
 const supabase = createServerComponentClient<Database>({ cookies });
 
 const getAllLessons = async () => {
