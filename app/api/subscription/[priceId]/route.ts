@@ -41,8 +41,8 @@ export async function GET(
     mode: "subscription",
     payment_method_types: ["card"],
     line_items: lineItems,
-    success_url: `${process.env.CLIENT_URL}/payment/success`,
-    cancel_url: `${process.env.CLIENT_URL}/payment/cancelled`,
+    success_url: `${process.env.NEXT_PUBLIC_CLIENT_URL}/payment/success`,
+    cancel_url: `${process.env.NEXT_PUBLIC_CLIENT_URL}/payment/cancelled`,
   });
 
   // return NextResponse.json({

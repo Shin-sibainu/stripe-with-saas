@@ -6,7 +6,7 @@ import axios from "axios";
 const SubscribeButton = ({ planId }: { planId: string }) => {
   const processSubscription = async (planId: string) => {
     const { data } = await axios.get(
-      `${process.env.CLIENT_URL}/api/subscription/${planId}`
+      `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/subscription/${planId}`
     );
     // console.log(data);
 

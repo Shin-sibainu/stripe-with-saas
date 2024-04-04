@@ -5,6 +5,7 @@ import { Database } from "./lib/database.types";
 
 //tutorialshin@gmail.com
 //https://github.com/Shin-sibainu/small-sns-clone
+//https://github.com/vercel/next.js/issues/56630
 
 export const dynamic = "force-dynamic";
 
