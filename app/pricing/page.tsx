@@ -15,39 +15,41 @@ interface Plan {
   currency: string;
 }
 
-const supabase = createServerComponentClient({ cookies });
-
-const getAllPrices = async (): Promise<Plan[]> => {
-  const stripe = new initStripe(process.env.STRIPE_SECRET_KEY!);
-
-  const { data: prices } = await stripe.prices.list();
-
-  const plans: Plan[] = await Promise.all(
-    prices.map(async (price) => {
-      const product = await stripe.products.retrieve(price.product as string);
-
-      return {
-        id: price.id,
-        name: product.name,
-        price: price.unit_amount,
-        interval: price.recurring?.interval ?? null,
-        currency: price.currency,
-      };
-    })
-  );
-
-  const sortedPlans: Plan[] = plans.sort((a, b) => a.price! - b.price!);
-
-  return sortedPlans;
-};
-
-const getProfileData = async () => {
-  const { data: profile } = await supabase.from("profile").select("*").single();
-  return profile;
-};
-
 const PricingPage = async () => {
+  const supabase = createServerComponentClient({ cookies });
   const { data: user } = await supabase.auth.getSession();
+
+  const getAllPrices = async (): Promise<Plan[]> => {
+    const stripe = new initStripe(process.env.STRIPE_SECRET_KEY!);
+
+    const { data: prices } = await stripe.prices.list();
+
+    const plans: Plan[] = await Promise.all(
+      prices.map(async (price) => {
+        const product = await stripe.products.retrieve(price.product as string);
+
+        return {
+          id: price.id,
+          name: product.name,
+          price: price.unit_amount,
+          interval: price.recurring?.interval ?? null,
+          currency: price.currency,
+        };
+      })
+    );
+
+    const sortedPlans: Plan[] = plans.sort((a, b) => a.price! - b.price!);
+
+    return sortedPlans;
+  };
+
+  const getProfileData = async () => {
+    const { data: profile } = await supabase
+      .from("profile")
+      .select("*")
+      .single();
+    return profile;
+  };
 
   const [plans, profile] = await Promise.all([
     await getAllPrices(),

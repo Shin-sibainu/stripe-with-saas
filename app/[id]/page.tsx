@@ -9,33 +9,34 @@ import { Database } from "../lib/database.types";
 
 export const dynamic = "force-dynamic";
 
-const getDetailLesson = async (
-  id: number,
-  supabase: SupabaseClient<Database>
-) => {
-  const { data: lesson } = await supabase
-    .from("lesson")
-    .select("*")
-    .eq("id", id)
-    .single();
-  return lesson;
-};
-
-const getPremiumContent = async (
-  id: number,
-  supabase: SupabaseClient<Database>
-) => {
-  const { data: video } = await supabase
-    .from("premium_content")
-    .select("video_url")
-    .eq("id", id)
-    .single();
-
-  return video;
-};
-
 const LessonDetails = async ({ params }: { params: { id: number } }) => {
   const supabase = createServerComponentClient<Database>({ cookies });
+
+  const getDetailLesson = async (
+    id: number,
+    supabase: SupabaseClient<Database>
+  ) => {
+    const { data: lesson } = await supabase
+      .from("lesson")
+      .select("*")
+      .eq("id", id)
+      .single();
+    return lesson;
+  };
+
+  const getPremiumContent = async (
+    id: number,
+    supabase: SupabaseClient<Database>
+  ) => {
+    const { data: video } = await supabase
+      .from("premium_content")
+      .select("video_url")
+      .eq("id", id)
+      .single();
+
+    return video;
+  };
+
   const [detailLesson, video] = await Promise.all([
     await getDetailLesson(params.id, supabase),
     await getPremiumContent(params.id, supabase),

@@ -8,17 +8,18 @@ import ManageSubscriptionButton from "../components/ManageSubscriptionButton";
 
 export const dynamic = "force-dynamic";
 
-const getProfileData = async (supabase: SupabaseClient) => {
-  const { data: profile } = await supabase
-    ?.from("profile")
-    .select("*")
-    .single();
-  return profile;
-};
-
 const DashBoard = async () => {
   const supabase = createServerComponentClient<Database>({ cookies });
-  const profile = await getProfileData(supabase);
+
+  const getProfileData = async () => {
+    const { data: profile } = await supabase
+      ?.from("profile")
+      .select("*")
+      .single();
+    return profile;
+  };
+
+  const profile = await getProfileData();
 
   return (
     <div className="w-full max-w-3xl mx-auto py-16 px-8">

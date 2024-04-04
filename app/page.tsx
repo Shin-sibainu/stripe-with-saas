@@ -8,19 +8,21 @@ import { Database } from "./lib/database.types";
 
 export const dynamic = "force-dynamic";
 
-const supabase = createServerComponentClient<Database>({ cookies });
-
-const getAllLessons = async () => {
-  const { data: lessons } = await supabase.from("lesson").select("*");
-  return lessons;
-};
-
-const getProfileData = async () => {
-  const { data: profile } = await supabase.from("profile").select("*").single();
-  return profile;
-};
-
 export default async function Home() {
+  const supabase = createServerComponentClient<Database>({ cookies });
+
+  const getAllLessons = async () => {
+    const { data: lessons } = await supabase.from("lesson").select("*");
+    return lessons;
+  };
+
+  const getProfileData = async () => {
+    const { data: profile } = await supabase
+      .from("profile")
+      .select("*")
+      .single();
+    return profile;
+  };
   const { data: session } = await supabase.auth.getSession();
 
   const [lessons, profile] = await Promise.all([
