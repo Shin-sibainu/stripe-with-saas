@@ -1,17 +1,14 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
-import { cookies } from "next/headers";
-import { Database } from "./lib/database.types";
+import { supabaseServer } from "./utils/supabaseServer";
 
 //tutorialshin@gmail.com
 //https://github.com/Shin-sibainu/small-sns-clone
 //https://github.com/vercel/next.js/issues/56630
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  cookies().getAll();
-  const supabase = createServerComponentClient<Database>({ cookies });
+  const supabase = supabaseServer();
 
   const getAllLessons = async () => {
     const { data: lessons } = await supabase.from("lesson").select("*");
@@ -25,7 +22,6 @@ export default async function Home() {
       .single();
     return profile;
   };
-  const { data: session } = await supabase.auth.getSession();
 
   const [lessons, profile] = await Promise.all([
     getAllLessons(),

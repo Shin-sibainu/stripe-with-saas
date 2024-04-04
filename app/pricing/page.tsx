@@ -1,11 +1,8 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import initStripe, { Stripe } from "stripe";
-import { cookies } from "next/headers";
 import SubscribeButton from "../components/SubscribeButton";
 import CreateUserButton from "../auth/components/CreateUserButton";
 import Link from "next/link";
-
-export const dynamic = "force-dynamic";
+import { supabaseServer } from "../utils/supabaseServer";
 
 interface Plan {
   id: string;
@@ -16,8 +13,7 @@ interface Plan {
 }
 
 const PricingPage = async () => {
-  cookies().getAll();
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = supabaseServer();
   const { data: user } = await supabase.auth.getSession();
 
   const getAllPrices = async (): Promise<Plan[]> => {

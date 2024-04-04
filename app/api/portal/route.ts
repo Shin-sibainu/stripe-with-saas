@@ -1,13 +1,9 @@
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
 import initStripe from "stripe";
-
-export const dynamic = "force-dynamic";
+import { supabaseRouteHandlerClient } from "@/app/utils/supabaseRouteHandlerClient";
 
 export async function GET(req: NextRequest) {
-  cookies().getAll();
-  const supabase = createRouteHandlerClient<Database>({ cookies });
+  const supabase = supabaseRouteHandlerClient();
   const { data } = await supabase.auth.getUser();
 
   const user = data.user;

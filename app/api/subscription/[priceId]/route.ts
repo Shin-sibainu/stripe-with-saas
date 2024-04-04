@@ -1,17 +1,12 @@
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
 import initStripe from "stripe";
-
-export const dynamic = "force-dynamic";
+import { supabaseRouteHandlerClient } from "@/app/utils/supabaseRouteHandlerClient";
 
 export async function GET(
   req: NextRequest,
   { params }: { params: { priceId: string } }
 ) {
-  cookies().getAll();
-
-  const supabase = createRouteHandlerClient<Database>({ cookies });
+  const supabase = supabaseRouteHandlerClient();
   const { data } = await supabase.auth.getUser();
 
   const user = data.user;
@@ -44,11 +39,6 @@ export async function GET(
     success_url: `${process.env.NEXT_PUBLIC_CLIENT_URL}/payment/success`,
     cancel_url: `${process.env.NEXT_PUBLIC_CLIENT_URL}/payment/cancelled`,
   });
-
-  // return NextResponse.json({
-  //   ...user,
-  //   stripe_customer,
-  // });
 
   return NextResponse.json({
     id: session.id,

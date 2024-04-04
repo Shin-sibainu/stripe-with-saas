@@ -1,18 +1,11 @@
-import {
-  SupabaseClient,
-  createServerComponentClient,
-} from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+import { SupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { YouTubeEmbed } from "@next/third-parties/google";
 import { extractYouTubeVideoId } from "../utils/extractYoutubeVideoId";
 import { Database } from "../lib/database.types";
-
-export const dynamic = "force-dynamic";
+import { supabaseServer } from "../utils/supabaseServer";
 
 const LessonDetails = async ({ params }: { params: { id: number } }) => {
-  cookies().getAll();
-
-  const supabase = createServerComponentClient<Database>({ cookies });
+  const supabase = supabaseServer();
 
   const getDetailLesson = async (
     id: number,

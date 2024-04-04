@@ -1,16 +1,9 @@
-import {
-  SupabaseClient,
-  createServerComponentClient,
-} from "@supabase/auth-helpers-nextjs";
 import React from "react";
-import { cookies } from "next/headers";
 import ManageSubscriptionButton from "../components/ManageSubscriptionButton";
-
-export const dynamic = "force-dynamic";
+import { supabaseServer } from "../utils/supabaseServer";
 
 const DashBoard = async () => {
-  cookies().getAll();
-  const supabase = createServerComponentClient<Database>({ cookies });
+  const supabase = supabaseServer();
 
   const getProfileData = async () => {
     const { data: profile } = await supabase

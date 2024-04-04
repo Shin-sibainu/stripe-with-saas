@@ -1,7 +1,6 @@
 "use client";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useRouter } from "next/navigation";
 
 const CreateUserButton = () => {
   const supabase = createClientComponentClient();

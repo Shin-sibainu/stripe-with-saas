@@ -1,12 +1,9 @@
 import React from "react";
 import AuthClientButton from "./AuthClientButton";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-
-export const dynamic = "force-dynamic";
+import { supabaseServer } from "@/app/utils/supabaseServer";
 
 const AuthServerButton = async () => {
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = supabaseServer();
   const { data: user } = await supabase.auth.getSession();
   const session = user.session;
 
